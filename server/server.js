@@ -11,7 +11,18 @@ const router = require("./Routes/userRelationRoutes")
 
 
 const app = express()
-app.use(cors())
+app.use(
+    cors({
+      origin: [
+        "https://admin.saibalikavikas.com",
+        "https://saibalikavikas.com",
+        "https://www.saibalikavikas.com",
+        "http://localhost:3000",
+        "http://localhost:3001",
+      ],
+      credentials: true,
+    })
+  );
 app.use(express.json())
 
 app.get("/", (req, res) => {
