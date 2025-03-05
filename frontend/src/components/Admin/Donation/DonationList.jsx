@@ -12,7 +12,9 @@ const DonationList = () => {
 
   const getUserdata = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/all-donatation`);
+      const res = await axios.get(
+        `https://api.saibalikavikas.com/api/all-donatation`
+      );
       if (res.status === 200) {
         console.log("API Response:", res.data); // Print the entire API response
         // Assuming the data is within a 'data' property
@@ -36,25 +38,41 @@ const DonationList = () => {
     }
   }, [list]);
 
-  const filteredMyDonations = list?.myDonation?.filter(
-    (user) =>
-      user.userId.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.userId.logId.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredMyDonations =
+    list?.myDonation?.filter(
+      (user) =>
+        user.userId.firstName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        user.userId.logId.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
-  const filteredMyChildsDonations = list?.myChildsDonation?.filter(
-    (user) =>
-      user.userId.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.userId.logId.toLowerCase().includes(searchTerm.toLowerCase())
-  ) || [];
+  const filteredMyChildsDonations =
+    list?.myChildsDonation?.filter(
+      (user) =>
+        user.userId.firstName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        user.userId.logId.toLowerCase().includes(searchTerm.toLowerCase())
+    ) || [];
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentMyDonations = filteredMyDonations.slice(indexOfFirstUser, indexOfLastUser);
-  const totalMyDonationPages = Math.ceil(filteredMyDonations.length / usersPerPage);
+  const currentMyDonations = filteredMyDonations.slice(
+    indexOfFirstUser,
+    indexOfLastUser
+  );
+  const totalMyDonationPages = Math.ceil(
+    filteredMyDonations.length / usersPerPage
+  );
 
-  const currentMyChildsDonations = filteredMyChildsDonations.slice(indexOfFirstUser, indexOfLastUser);
-  const totalMyChildsDonationPages = Math.ceil(filteredMyChildsDonations.length / usersPerPage);
+  const currentMyChildsDonations = filteredMyChildsDonations.slice(
+    indexOfFirstUser,
+    indexOfLastUser
+  );
+  const totalMyChildsDonationPages = Math.ceil(
+    filteredMyChildsDonations.length / usersPerPage
+  );
 
   return (
     <div className="container table-container mt-4 mb-5">

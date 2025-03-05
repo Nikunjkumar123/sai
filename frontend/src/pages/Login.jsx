@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import loginImage from '../assets/images/logimg.png';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
+import loginImage from "../assets/images/logimg.png";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    logId: '',
-    password: '',
+    logId: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -24,8 +24,8 @@ const Login = () => {
   // Form Validation
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.logId) newErrors.logId = 'Phone/User ID is required';
-    if (!formData.password) newErrors.password = 'Password is required';
+    if (!formData.logId) newErrors.logId = "Phone/User ID is required";
+    if (!formData.password) newErrors.password = "Password is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -37,37 +37,48 @@ const Login = () => {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post('http://localhost:8000/api/log-in',formData);
-      console.log(res)
+      const res = await axios.post(
+        "https://api.saibalikavikas.com/api/log-in",
+        formData
+      );
+      console.log(res);
       if (res.status === 200) {
-        sessionStorage.setItem('login', true);
+        sessionStorage.setItem("login", true);
         sessionStorage.setItem("UserId", res.data.user.id);
         // Retrieve the redirect URL from session storage or default to '/admin-dashboard'
-        const redirectAfterLogin = sessionStorage.getItem('redirectAfterLogin') || '/admin-dashboard';
-        const redirectAfterLoginMarriage = sessionStorage.getItem('redirectAfterLoginmarrige') || '/admin-dashboard';
-        const redirectAfterLoginGirlBorn = sessionStorage.getItem('redirectAfterLogingirlborn') || '/admin-dashboard';
-        const redirectAfterLoginAccidental = sessionStorage.getItem('redirectAfterLoginAccidental') || '/admin-dashboard';
-        const redirectAfterLoginSupport = sessionStorage.getItem('redirectAfterLoginhome') || '/admin-dashboard';
+        const redirectAfterLogin =
+          sessionStorage.getItem("redirectAfterLogin") || "/admin-dashboard";
+        const redirectAfterLoginMarriage =
+          sessionStorage.getItem("redirectAfterLoginmarrige") ||
+          "/admin-dashboard";
+        const redirectAfterLoginGirlBorn =
+          sessionStorage.getItem("redirectAfterLogingirlborn") ||
+          "/admin-dashboard";
+        const redirectAfterLoginAccidental =
+          sessionStorage.getItem("redirectAfterLoginAccidental") ||
+          "/admin-dashboard";
+        const redirectAfterLoginSupport =
+          sessionStorage.getItem("redirectAfterLoginhome") ||
+          "/admin-dashboard";
 
         Swal.fire({
-          icon: 'success',
-          title: 'Login Successful',
-          text: 'You have successfully logged in!',
+          icon: "success",
+          title: "Login Successful",
+          text: "You have successfully logged in!",
         }).then(() => {
           // Navigate to the first available redirect URL
-          if (redirectAfterLogin !== '/admin-dashboard') {
+          if (redirectAfterLogin !== "/admin-dashboard") {
             window.location.href = redirectAfterLogin;
-          } else if (redirectAfterLoginMarriage !== '/admin-dashboard') {
+          } else if (redirectAfterLoginMarriage !== "/admin-dashboard") {
             window.location.href = redirectAfterLoginMarriage;
-          } else if (redirectAfterLoginGirlBorn !== '/admin-dashboard') {
+          } else if (redirectAfterLoginGirlBorn !== "/admin-dashboard") {
             window.location.href = redirectAfterLoginGirlBorn;
-          } else if (redirectAfterLoginAccidental !== '/admin-dashboard') {
+          } else if (redirectAfterLoginAccidental !== "/admin-dashboard") {
             window.location.href = redirectAfterLoginAccidental;
-          }
-          else if (redirectAfterLoginSupport !== '/admin-dashboard') {
+          } else if (redirectAfterLoginSupport !== "/admin-dashboard") {
             window.location.href = redirectAfterLoginSupport;
           } else {
-            window.location.href = '/admin-dashboard'; // Default fallback
+            window.location.href = "/admin-dashboard"; // Default fallback
           }
           sessionStorage.removeItem("redirectAfterLogin"); // Clear after use
           sessionStorage.removeItem("redirectAfterLoginmarrige"); // Clear after use
@@ -79,9 +90,11 @@ const Login = () => {
       console.error(error);
 
       Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        text: error.response?.data?.errors || 'An error occurred. Please try again.',
+        icon: "error",
+        title: "Login Failed",
+        text:
+          error.response?.data?.errors ||
+          "An error occurred. Please try again.",
       });
     }
   };
@@ -89,9 +102,9 @@ const Login = () => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
-    })
-  }, [])
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <>
@@ -104,7 +117,10 @@ const Login = () => {
             <h2>LOGIN</h2>
             <p>Please fill your detail to access your account.</p>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="logId" style={{ color: '#6c757d', fontSize: '15px' }}>
+              <label
+                htmlFor="logId"
+                style={{ color: "#6c757d", fontSize: "15px" }}
+              >
                 Phone / User ID
               </label>
               <input
@@ -115,38 +131,41 @@ const Login = () => {
                 onChange={handleInputChange}
               />
               {errors.logId && (
-                <div className="text-danger" style={{ fontSize: '12px' }}>
+                <div className="text-danger" style={{ fontSize: "12px" }}>
                   {errors.logId}
                 </div>
               )}
 
-              <div style={{ position: 'relative' }}>
-                <label htmlFor="password" style={{ color: '#6c757d', fontSize: '15px' }}>
+              <div style={{ position: "relative" }}>
+                <label
+                  htmlFor="password"
+                  style={{ color: "#6c757d", fontSize: "15px" }}
+                >
                   Password
                 </label>
                 <input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   placeholder="Enter your password"
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                   value={formData.password}
                   onChange={handleInputChange}
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '30px',
-                    cursor: 'pointer',
-                    color: '#6c757d',
+                    position: "absolute",
+                    right: "10px",
+                    top: "30px",
+                    cursor: "pointer",
+                    color: "#6c757d",
                   }}
                 >
-                  {showPassword ? '🙉' : '🙈'}
+                  {showPassword ? "🙉" : "🙈"}
                 </span>
                 {errors.password && (
-                  <div className="text-danger" style={{ fontSize: '12px' }}>
+                  <div className="text-danger" style={{ fontSize: "12px" }}>
                     {errors.password}
                   </div>
                 )}
@@ -155,7 +174,7 @@ const Login = () => {
               <div>
                 <input type="checkbox" id="remember" />
                 <label htmlFor="remember">Remember me</label>
-                <Link to="/forgot-password" style={{ float: 'right' }}>
+                <Link to="/forgot-password" style={{ float: "right" }}>
                   Forgot Password?
                 </Link>
               </div>

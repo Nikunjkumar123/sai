@@ -10,7 +10,7 @@ const Card = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/all-donatation');
+      const response = await axios.get('https://api.saibalikavikas.com/api/all-donatation');
       if (response.status === 200) {
         const data = response.data.data;
 

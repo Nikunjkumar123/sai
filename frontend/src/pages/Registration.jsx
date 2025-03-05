@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import loginImage from '../assets/images/logimg.png';
+import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import loginImage from "../assets/images/logimg.png";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,30 +9,28 @@ const Registration = () => {
 
   // Form State
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    mobile: '',
-    email: '',
-    dateOfBirth: '',
-    state: '',
-    city: '',
-    address: '',
-    country: 'India',
-    district: '',
-    pincode: '',
-    landmark: '',
-    password: '',
-    confirmPassword: ''
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    email: "",
+    dateOfBirth: "",
+    state: "",
+    city: "",
+    address: "",
+    country: "India",
+    district: "",
+    pincode: "",
+    landmark: "",
+    password: "",
+    confirmPassword: "",
   });
-
-
 
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -40,36 +38,41 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
     try {
-      const response = await axios.post('http://localhost:8000/api/signup', formData);
-      if (response.status = 201) {
+      const response = await axios.post(
+        "https://api.saibalikavikas.com/api/signup",
+        formData
+      );
+      if ((response.status = 201)) {
         Swal.fire({
-          icon: 'success',
-          title: 'Sign Up Successful',
-          text: 'You have successfully Signup !',
-        })
+          icon: "success",
+          title: "Sign Up Successful",
+          text: "You have successfully Signup !",
+        });
       }
       setFormData({
-        firstName: '',
-        lastName: '',
-        mobile: '',
-        email: '',
-        dateOfBirth: '',
-        state: '',
-        city: '',
-        address: '',
-        country: '',
-        district: '',
-        pincode: '',
-        landmark: '',
-        password: '',
-        confirmPassword: ''
+        firstName: "",
+        lastName: "",
+        mobile: "",
+        email: "",
+        dateOfBirth: "",
+        state: "",
+        city: "",
+        address: "",
+        country: "",
+        district: "",
+        pincode: "",
+        landmark: "",
+        password: "",
+        confirmPassword: "",
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       Swal.fire({
-        icon: 'error',
-        title: 'Signup Failed',
-        text: error.response?.data?.errors || 'An error occurred. Please try again.',
+        icon: "error",
+        title: "Signup Failed",
+        text:
+          error.response?.data?.errors ||
+          "An error occurred. Please try again.",
       });
     }
   };
@@ -91,7 +94,8 @@ const Registration = () => {
                   placeholder="First Name"
                   type="text"
                   value={formData.firstName}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -103,7 +107,8 @@ const Registration = () => {
                   placeholder="Last Name"
                   type="text"
                   value={formData.lastName}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -116,7 +121,8 @@ const Registration = () => {
                   type="number"
                   pattern="[0-9]"
                   value={formData.mobile}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -128,7 +134,8 @@ const Registration = () => {
                   placeholder="Enter your email"
                   type="email"
                   value={formData.email}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -140,7 +147,8 @@ const Registration = () => {
                   placeholder="Date of birth"
                   type="date"
                   value={formData.dateOfBirth}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -150,11 +158,14 @@ const Registration = () => {
                   className="form-select"
                   name="country"
                   value={formData.country}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                   aria-label="Default select example"
                   style={{ outline: "none", boxShadow: "none" }}
                 >
-                  <option selected disabled>Select country</option>
+                  <option selected disabled>
+                    Select country
+                  </option>
                   <option value="India">India</option>
                 </select>
               </div>
@@ -165,7 +176,8 @@ const Registration = () => {
                   className="form-select"
                   name="state"
                   value={formData.state}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                   aria-label="Default select example"
                   style={{ outline: "none", boxShadow: "none" }}
                 >
@@ -223,7 +235,8 @@ const Registration = () => {
                   placeholder="Type Your District"
                   type="text"
                   value={formData.district}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -235,12 +248,10 @@ const Registration = () => {
                   placeholder="City"
                   type="text"
                   value={formData.city}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
-
-
-
 
               <div className="form-group">
                 <label htmlFor="address">Address</label>
@@ -250,11 +261,10 @@ const Registration = () => {
                   placeholder="Type Your Address"
                   type="text"
                   value={formData.address}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
-
-
 
               <div className="form-group">
                 <label htmlFor="pin-code">Pin code</label>
@@ -264,7 +274,8 @@ const Registration = () => {
                   placeholder="Enter pin code here"
                   type="number"
                   value={formData.pincode}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -276,56 +287,80 @@ const Registration = () => {
                   placeholder="Enter road name"
                   type="text"
                   value={formData.landmark}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
 
-              <div style={{ position: 'relative' }}>
-                <label htmlFor="password" style={{ color: "#6c757d", fontSize: "10px" }}>Password</label>
+              <div style={{ position: "relative" }}>
+                <label
+                  htmlFor="password"
+                  style={{ color: "#6c757d", fontSize: "10px" }}
+                >
+                  Password
+                </label>
                 <input
                   className="form-control"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   id="password"
                   placeholder="Enter your password"
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                   value={formData.password}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
-                    position: 'absolute', right: '10px', top: '30px', cursor: 'pointer', color: '#6c757d',
+                    position: "absolute",
+                    right: "10px",
+                    top: "30px",
+                    cursor: "pointer",
+                    color: "#6c757d",
                   }}
                 >
                   {showPassword ? "🙉" : "🙈"}
                 </span>
               </div>
 
-              <div style={{ position: 'relative' }}>
-                <label htmlFor="confirmPassword" style={{ color: "#6c757d", fontSize: "10px" }}>Confirm Password</label>
+              <div style={{ position: "relative" }}>
+                <label
+                  htmlFor="confirmPassword"
+                  style={{ color: "#6c757d", fontSize: "10px" }}
+                >
+                  Confirm Password
+                </label>
                 <input
                   className="form-control"
                   name="confirmPassword"
                   type={cshowPassword ? "text" : "password"}
                   id="confirmPassword"
                   placeholder="Confirm password"
-                  style={{ width: '100%' }}
+                  style={{ width: "100%" }}
                   value={formData.confirmPassword}
-                  onChange={handleInputChange} required
+                  onChange={handleInputChange}
+                  required
                 />
                 <span
                   onClick={() => setCshowPassword(!cshowPassword)}
                   style={{
-                    position: 'absolute', right: '10px', top: '30px', cursor: 'pointer', color: '#6c757d',
+                    position: "absolute",
+                    right: "10px",
+                    top: "30px",
+                    cursor: "pointer",
+                    color: "#6c757d",
                   }}
                 >
                   {cshowPassword ? "🙉" : "🙈"}
                 </span>
               </div>
 
-              <button type="submit" className="btn btn-primary w-100 mt-3 fw-bold"
-                style={{ background: "#22B6AF", border: "none" }}>
+              <button
+                type="submit"
+                className="btn btn-primary w-100 mt-3 fw-bold"
+                style={{ background: "#22B6AF", border: "none" }}
+              >
                 Register
               </button>
             </form>
